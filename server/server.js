@@ -99,7 +99,7 @@ app.prepare().then(() => {
       const name = order.payload.name;
       const date = order.payload.created_at;
       const amount = order.payload.total_price; //subtotal_price
-      const taxamount = order.payload.total_tax;
+      const taxamount = parseFloat(amount * 0.15966386554).toFixed(2);
       const payment = order.payload.payment_gateway_names;
       var pp_token = "";
       if(payment.includes('paypal')){
@@ -136,7 +136,7 @@ app.prepare().then(() => {
         voucherItems: [{ 
           amount: amount, 
           taxAmount: taxamount, 
-          taxRatePercent: 19, 
+          taxRatePercent: 19.00, 
           categoryId: "8f8664a1-fd86-11e1-a21f-0800200c9a66" 
         }] 
       }, headers:{
@@ -187,6 +187,105 @@ app.prepare().then(() => {
     ctx.respond = true;
     ctx.res.statusCode = 200;
   });
+
+  // router.get("/test", async (ctx) => {
+  //   try {
+  //     var is_paypal = false;
+  //     //const order = ctx.state.webhook;
+  //     const id = 124015;
+  //     const name = "TEST";
+  //     const date = new Date();
+  //     const amount = 14.98; //subtotal_price
+  //     const taxamount = parseFloat(amount * 0.15966386554).toFixed(2);
+  //     const payment = "test";
+  //     var pp_token = "test";
+  //     // if(payment.includes('paypal')){
+  //     //   is_paypal = true;
+  //     //   pp_token = "c"+order.payload.checkout_id.toString()+".1";
+  //     // }else{
+  //     //   pp_token = "c"+order.payload.checkout_id.toString()+".1";
+  //     // }
+      
+
+  //     const order_id = "124015";
+  //     const url = buildUrl(id,order_id);
+
+  //     // const pdf = await axios(buildUrl(id,order_id),{
+  //     //     responseType: 'arraybuffer',
+  //     //     headers: {
+  //     //         'Content-Type': 'application/json',
+  //     //         'Accept': 'application/pdf'
+  //     //     }
+  //     // });
+
+  //     if(!done.includes(parseInt(order_id))){
+  //     	done.push(parseInt(order_id));
+
+  //       const res = await axios({url:'https://api.lexoffice.io/v1/vouchers', method:"POST", data: { type: "salesinvoice", 
+  //       voucherNumber: pp_token, 
+  //       voucherDate: date, 
+  //       dueDate: date, 
+  //       totalGrossAmount: amount, 
+  //       totalTaxAmount: taxamount, 
+  //       taxType: "gross", 
+  //       useCollectiveContact: true, 
+  //       remark: name, 
+  //       voucherItems: [
+  //         { 
+  //         amount: amount, 
+  //         taxAmount: taxamount, 
+  //         taxRatePercent: 19.00, 
+  //         categoryId: "8f8664a1-fd86-11e1-a21f-0800200c9a66" 
+  //       }
+  //       ] 
+  //     }, headers:{
+  //         'Content-Type': 'application/json',
+  //         'Authorization': 'Bearer 94bfad73-4968-44e4-9519-bebec40f9e8e', //205445f2-627e-438d-80ab-c7ce5b53ec0a
+  //         'Accept': 'application/json'
+  //       }})
+
+  //       const voucher_id = await res.data.id;
+
+
+  //       // fs.writeFile(order_id + ".pdf", pdf.data, async (fsError) => {
+  //       //   if (fsError) {
+  //       //       throw fsError;
+  //       //   }
+  //         // Send the file
+  //         const url = 'https://api.lexoffice.io/v1/vouchers/'+voucher_id+'/files';
+  //         const formData = new FormData();
+  //         formData.append('file',fs.createReadStream("./"+order_id+".pdf"), { knownLength: fs.statSync("./"+order_id+".pdf").size });
+  //         //formData.append('type','voucher');
+  //         const config = {
+  //             headers: {
+  //                 ...formData.getHeaders(),
+  //                 'Content-Length': formData.getLengthSync(),
+  //                 'Authorization': 'Bearer 94bfad73-4968-44e4-9519-bebec40f9e8e',
+  //                 'Accept': 'application/json',
+  //             }
+  //         };
+  //         axios({ method: 'post',
+  //         url: url,data:formData,headers:config.headers }).then((res)=>{
+  //           console.log(res);
+  //           try {
+  //             fs.unlinkSync("./"+order_id+".pdf");
+  //             //file removed
+  //           } catch(err) {
+  //             console.error(err);
+  //           }
+  //         }).catch(err=>{console.log(err)});
+          
+  //     // });
+  //   }
+
+
+  //   } catch (e) {
+  //     console.log(e.response.data);
+  //   }
+
+  //   ctx.respond = true;
+  //   ctx.res.statusCode = 200;
+  // });
 
 
   const refund_query = gql`query get_refund($trans:ID!){
