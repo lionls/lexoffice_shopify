@@ -27,7 +27,7 @@ var request = require('request');
 //Set up default mongoose connection
 
 dotenv.config();
-const port = parseInt(process.env.PORT, 10)  || 3000 || 8081;
+const port = parseInt(process.env.PORT, 10) || 9898 || 3000 || 8081;
 const dev = process.env.NODE_ENV !== "production";
 const app = next({
   dev,
