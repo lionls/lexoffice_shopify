@@ -1,0 +1,31 @@
+---
+version: "3.3"
+services:
+  # POSTGRES: https://github.com/docker-library/postgres
+  # db:
+  #   image: postgres
+  #   container_name: db_orderconverter
+  #   #restart: always
+  #   environment:
+  #     POSTGRES_USER: root
+  #     POSTGRES_PASSWORD: Lionel007
+  #   # exposes 5432
+  #   ports: ["5432:5432"]
+  #   volumes:
+  #     - ./db/data:/var/lib/postgresql/data
+  #     - ./db/conf:/etc/postgresql
+  mongodb:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: Lionel007
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongodb:/data/db
+  # adminer:
+  #   container_name: adminer_orderconverter
+  #   image: adminer
+  #   #restart: always
+  #   ports:
+  #     - 8080:8080
