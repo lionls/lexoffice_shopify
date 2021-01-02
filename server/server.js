@@ -67,13 +67,13 @@ app.prepare().then(() => {
         });
         console.log(shop)
         console.log(accessToken)
-        handlers.registerWebhooks(
-          shop,
-          accessToken,
-          "ORDERS_CREATE",
-          `/webhooks/orders/create`,
-          ApiVersion.April20
-        );
+        // handlers.registerWebhooks(
+        //   shop,
+        //   accessToken,
+        //   "ORDERS_CREATE",
+        //   `/webhooks/orders/create`,
+        //   ApiVersion.April20
+        // );
         ctx.redirect("/");
       },
     })
@@ -135,8 +135,8 @@ app.prepare().then(() => {
         remark: name, 
         voucherItems: [{ 
           amount: amount, 
-          taxAmount: 0.00, 
-          taxRatePercent: 0, 
+          taxAmount: taxamount, 
+          taxRatePercent: 19, 
           categoryId: "8f8664a1-fd86-11e1-a21f-0800200c9a66" 
         }] 
       }, headers:{
